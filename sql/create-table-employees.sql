@@ -15,6 +15,6 @@ BEGIN
         [FirstName] VARCHAR(100) NOT NULL,
         [LastName] VARCHAR(100) NOT NULL,
         [Manager] UNIQUEIDENTIFIER,
-        [Roles] UNIQUEIDENTIFIER NOT NULL
+        [Roles] UNIQUEIDENTIFIER NOT NULL FOREIGN KEY REFERENCES RoleMappings(ID)
     )
 END
