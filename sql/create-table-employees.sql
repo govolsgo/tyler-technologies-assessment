@@ -4,7 +4,7 @@ IF NOT EXISTS
 (
     SELECT 1
     FROM [INFORMATION_SCHEMA].[TABLES] WITH (NOLOCK)
-    WHERE [TABLE_NAME] = N'S-Squared-Enterprises'
+    WHERE [TABLE_NAME] = N'Employees'
 )
 
 BEGIN
