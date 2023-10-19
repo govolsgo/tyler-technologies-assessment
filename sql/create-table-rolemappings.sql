@@ -1,0 +1,17 @@
+USE [S-Squared-Enterprises]
+
+IF NOT EXISTS
+(
+    SELECT 1
+    FROM [INFORMATION_SCHEMA].[TABLES] WITH (NOLOCK)
+    WHERE [TABLE_NAME] = N'RoleMappings'
+)
+
+BEGIN
+    CREATE TABLE [RoleMappings]
+    (
+        [ID] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+        [UserID] UNIQUEIDENTIFIER NOT NULL,
+        [RoleID] UNIQUEIDENTIFIER NOT NULL
+    )
+END
