@@ -76,7 +76,7 @@ namespace Tyler_Tech_Test
 
                 if (result == 1)
                 {
-                    AddRoles(employee);
+                    AddRoleMappings(employee);
                     return;
                 }
                 else
@@ -84,7 +84,7 @@ namespace Tyler_Tech_Test
             }
         }
 
-        public static void AddRoles(Employee employee)
+        public static void AddRoleMappings(Employee employee)
         {
             using (var cn = new SqlConnection("connection string would go here"))
             {
