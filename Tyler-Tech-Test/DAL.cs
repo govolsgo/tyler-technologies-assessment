@@ -109,5 +109,33 @@ namespace Tyler_Tech_Test
                 }
             }
         }
+
+        public static List<Role> GetRoleList()
+        {
+            var roleList = new List<Role>();
+
+            using (var cn = new SqlConnection("connection string would go here"))
+            {
+                var cmd = new SqlCommand("GetAllRoles", cn);
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var role = new Role
+                        {
+                            ID = (Guid)reader["ID"],
+                            Name = (string)reader["Name"]
+                        };
+
+                        roleList.Add(role);
+                    }
+                }
+            }
+
+            return roleList;
+        }
     }
 }
