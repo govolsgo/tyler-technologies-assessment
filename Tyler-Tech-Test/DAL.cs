@@ -3,8 +3,15 @@ using Microsoft.Data.SqlClient;
 
 namespace Tyler_Tech_Test
 {
-	public static class DAL
+	public class DAL
 	{
+        public List<Role> RoleList;
+
+        public DAL()
+        {
+            RoleList = GetRoleList();
+        }
+
         public static List<Employee> GetEmployeesByManager(Guid manager)
         {
             var employees = new List<Employee>();
@@ -58,7 +65,7 @@ namespace Tyler_Tech_Test
             }
         }
 
-        public static void AddEmployee(Employee employee)
+        public void AddEmployee(Employee employee)
         {
             using (var cn = new SqlConnection("connection string would go here"))
             {
@@ -82,7 +89,7 @@ namespace Tyler_Tech_Test
             }
         }
 
-        public static void AddRoleMappings(Employee employee)
+        public void AddRoleMappings(Employee employee)
         {
             using (var cn = new SqlConnection("connection string would go here"))
             {
@@ -90,12 +97,9 @@ namespace Tyler_Tech_Test
 
                 foreach (var role in employee.Roles)
                 {
-                    var cmd = new SqlCommand("GetRoleIDByName", cn);
-                    cmd.Parameters.AddWithValue("@RoleName", role);
+                    var roleID = RoleList.Where(x => x.Name == role);
 
-                    var roleID = (Guid)cmd.ExecuteScalar();
-
-                    cmd = new SqlCommand("AddRoleMapping");
+                    var cmd = new SqlCommand("AddRoleMapping");
                     cmd.Parameters.AddWithValue("@ID", Guid.NewGuid());
                     cmd.Parameters.AddWithValue("@UserID", employee.ID);
                     cmd.Parameters.AddWithValue("@RoleID", roleID);
