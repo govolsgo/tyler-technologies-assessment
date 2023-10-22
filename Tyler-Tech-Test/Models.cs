@@ -3,10 +3,15 @@ namespace Tyler_Tech_Test
 {
     public class Employee
     {
+        public Employee()
+        {
+            Roles = new List<string>();
+        }
+
         public Guid ID;
-        public string EmployeeID;
-        public string FirstName;
-        public string LastName;
+        public required string EmployeeID;
+        public required string FirstName;
+        public required string LastName;
         public Guid Manager;
         public List<string> Roles;
     }
@@ -14,7 +19,7 @@ namespace Tyler_Tech_Test
     public class Role
     {
         public Guid ID;
-        public string Name;
+        public required string Name;
     }
 }
 
