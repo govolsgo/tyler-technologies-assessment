@@ -82,9 +82,7 @@ namespace Tyler_Tech_Test
                         return;
                     }
                     else
-                    {
                         throw new Exception("Unable to add employee!");
-                    }
                 }
             }
 
