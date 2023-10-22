@@ -51,9 +51,7 @@ namespace Tyler_Tech_Test
                 if (results.HasRows)
                 {
                     while (results.Read())
-                    {
-                        employee.Roles.Add((string)results["RoleName"]);
-                    }
+                        employee.Roles.Add((string)results["Name"]);
                 }
 
                 return employee;
@@ -97,7 +95,7 @@ namespace Tyler_Tech_Test
 
                     var roleID = (Guid)cmd.ExecuteScalar();
 
-                    cmd = new SqlCommand("AddRole");
+                    cmd = new SqlCommand("AddRoleMapping");
                     cmd.Parameters.AddWithValue("@ID", Guid.NewGuid());
                     cmd.Parameters.AddWithValue("@UserID", employee.ID);
                     cmd.Parameters.AddWithValue("@RoleID", roleID);
