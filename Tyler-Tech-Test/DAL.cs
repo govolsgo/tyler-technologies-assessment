@@ -87,6 +87,32 @@ namespace Tyler_Tech_Test
                     }
                 }
             }
-		}
+
+            static void AddRoles(Employee employee)
+            {
+                using (var cn = new SqlConnection("connection string would go here"))
+                {
+                    cn.Open();
+
+                    foreach (var role in employee.Roles)
+                    {
+                        var cmd = new SqlCommand("GetRoleIDByName", cn);
+                        cmd.Parameters.AddWithValue("@RoleName", role);
+
+                        var roleID = (Guid)cmd.ExecuteScalar();
+
+                        cmd = new SqlCommand("AddRole");
+                        cmd.Parameters.AddWithValue("@ID", Guid.NewGuid());
+                        cmd.Parameters.AddWithValue("@UserID", employee.ID);
+                        cmd.Parameters.AddWithValue("@RoleID", roleID);
+
+                        var result = cmd.ExecuteNonQuery();
+
+                        if (result != 1)
+                            throw new Exception("Unable to add role!");
+                    }
+                }
+            }
+        }
 	}
 }
