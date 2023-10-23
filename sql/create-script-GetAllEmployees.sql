@@ -1,0 +1,18 @@
+USE [S-Squared-Enterprises]
+
+IF EXISTS
+(
+    SELECT 1
+    FROM [INFORMATION_SCHEMA].[ROUTINES] WITH (NOLOCK)
+    WHERE [ROUTINE_NAME] = 'GetAllEmployees'
+    AND [ROUTINE_TYPE] = 'PROCEDURE'
+)
+BEGIN
+	DROP PROCEDURE [GetAllEmployees]
+END
+GO
+
+CREATE PROCEDURE [dbo].[GetAllEmployees]
+AS
+SELECT *
+FROM [dbo].[Employees]

@@ -1,0 +1,41 @@
+﻿@page
+@model Tyler_Tech_Test.Pages.add_employeeModel
+@{
+    ViewData["Title"] = "Add Employee";
+}
+@Html.AntiForgeryToken()
+
+<h1>Add New Employee</h1>
+
+<label for="manager-dropdown">Manager: </label>
+<select id="manager-dropdown">
+    <option value=""></option>
+    @{
+        foreach (var employee in Model.employeeList)
+        {
+            <option value="@employee.ID">@employee.LastName, @employee.FirstName</option>
+        }
+    }
+</select>
+
+<label for="employee-id">Employee ID:</label>
+<input id="employee-id" type="text">
+
+<label for="first-name">First Name:</label>
+<input id="first-name" type="text">
+
+<label for="last-name">Last Name:</label>
+<input id="last-name" type="text">
+
+<label for="selectable-list">Roles:</label>
+<div id="selectable-list">
+    @{
+        foreach (var role in Model.roleList)
+        {
+            <div class="role">@role.Name</div>
+        }
+    }
+</div>
+
+<button id="save-button">Save</button>
+<button id="cancel-button">Cancel</button>

@@ -6,6 +6,7 @@
 $(function() {
     BindButtons();
     BindDropdown();
+    BindSelectableList();
 });
 
 function BindButtons() {
@@ -14,21 +15,21 @@ function BindButtons() {
     });
 
     $("#save-button").click(function () {
-        var url = "./add-employee/add"
+        var url = "/add-employee?handler=AddNewEmployee"
 
         var manager = $("#manager-dropdown").val();
         var employeeID = $("#employee-id").val();
         var firstName = $("#first-name").val();
         var lastName = $("#last-name").val();
         var roles = $(".role .selected").map(function () {
-            return this.attr("dbid");
+            return $(this).text();
         }).get();
 
         var data = {
             Manager: manager,
             EmployeeID: employeeID,
             FirstName: firstName,
-            LastName: LastName,
+            LastName: lastName,
             Roles: roles
         };
 
@@ -47,15 +48,36 @@ function BindButtons() {
 
 function BindDropdown() {
     $("#manager-dropdown").change(function () {
-        var postbackUrl = "./subordinate-viewer/get";
+        var postbackUrl = "/subordinate-viewer?handler=GetSubordinates"
         var url = window.location.href;
 
         if (url.indexOf("subordinate-viewer") > -1) {
             var manager = $("#manager-dropdown").val();
             var data = { Manager: manager };
 
-            Postback(postbackUrl, data, nothing, FailueAlert);
+            Postback(postbackUrl, data, PopulateEmployeeTable, FailueAlert);
         }
+    });
+}
+
+function BindSelectableList() {
+    $("#selectable-list .role").click(function () {
+        if ($(this).hasClass("selected")) {
+            $(this).removeClass("selected");
+        }
+        else {
+            $(this).addClass("selected");
+        }
+    });
+}
+
+function PopulateEmployeeTable(data) {
+    var employees = JSON.parse(data.data);
+
+    $("#employee-table tr").remove();
+
+    employees.forEach(function (employee) {
+        $("#employee-table tbody").append("<tr><td>" + employee.EmployeeID + "</td><td>" + employee.LastName + "</td><td>" + employee.FirstName + "</td></tr>")
     });
 }
 
@@ -64,10 +86,14 @@ function Postback(url, data, success, failure) {
         type: "POST",
         url: url,
         data: data,
-        contentType: "application/json",
+        //contentType: "application/json",
         dataType: "json",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("RequestVerificationToken", $("input:hidden[name='__RequestVerificationToken']").val())
+        },
         success: success,
-        failure: failure
+        failure: failure,
+        error: failure
     });
 }
 

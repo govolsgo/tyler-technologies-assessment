@@ -15,5 +15,12 @@ namespace Tyler_Tech_Test.Pages
         {
             managerList = DAL.GetManagers();
         }
+
+        public IActionResult OnPostGetSubordinates(Guid Manager)
+        {
+            var employees = DAL.GetEmployeesByManager(Manager);
+
+            return new JsonResult(employees);
+        }
     }
 }

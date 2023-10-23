@@ -3,20 +3,23 @@
 @{
     ViewData["Title"] = "Subordinate Viewer";
 }
+@Html.AntiForgeryToken()
 
 <title>S-Squared Enterprises Personnel System</title>
 <h1>S-Squared Enterprises Personnel System</h1>
 
 <label for="manager-dropdown">Manager: </label>
-<select name="manager-dropdown"></select>
+<select name="manager-dropdown" id="manager-dropdown">
+    <option value=""></option>
 @{
     foreach (var manager in Model.managerList)
     {
-        <option id="@manager.ID">@manager.LastName, @manager.FirstName</option>
+        <option value="@manager.ID">@manager.LastName, @manager.FirstName</option>
     }
 }
+</select>
 
-<table>
+<table id="employee-table">
     <tr>
         <th>Employee ID</th>
         <th>Last Name</th>
