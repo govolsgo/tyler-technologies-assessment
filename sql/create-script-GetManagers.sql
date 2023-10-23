@@ -10,6 +10,7 @@ IF EXISTS
 BEGIN
 	DROP PROCEDURE [GetManagers]
 END
+GO
 
 CREATE PROCEDURE [dbo].[GetManagers]
 AS
