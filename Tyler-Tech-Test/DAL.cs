@@ -139,5 +139,36 @@ namespace Tyler_Tech_Test
 
             return roleList;
         }
+
+        public static List<Employee> GetManagers()
+        {
+            var managerList = new List<Employee>();
+
+            using (var cn = new SqlConnection("connection string would go here"))
+            {
+                var cmd = new SqlCommand("GetManagers", cn);
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var manager = new Employee
+                        {
+                            ID = (Guid)reader["ID"],
+                            EmployeeID = (string)reader["EmployeeID"],
+                            FirstName = (string)reader["FirstName"],
+                            LastName = (string)reader["LastName"],
+                            Manager = (Guid)reader["Manager"]
+                        };
+
+                        managerList.Add(manager);
+                    }
+                }
+            }
+
+            return managerList;
+        }
     }
 }
