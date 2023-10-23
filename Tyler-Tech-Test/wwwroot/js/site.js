@@ -3,10 +3,10 @@
 
 // Write your JavaScript code.
 
-$(funciton() {
+$(function() {
     BindButtons();
     BindDropdown();
-})
+});
 
 function BindButtons() {
     $("#add-button").click(function () {
@@ -52,7 +52,7 @@ function BindDropdown() {
 
         if (url.indexOf("subordinate-viewer") > -1) {
             var manager = $("#manager-dropdown").val();
-            var data = { Manager = manager };
+            var data = { Manager: manager };
 
             Postback(postbackUrl, data, nothing, FailueAlert);
         }
