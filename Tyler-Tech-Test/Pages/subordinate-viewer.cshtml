@@ -7,8 +7,14 @@
 <title>S-Squared Enterprises Personnel System</title>
 <h1>S-Squared Enterprises Personnel System</h1>
 
-<label for="manager-dropdown">Manager:</label>
+<label for="manager-dropdown">Manager: </label>
 <select name="manager-dropdown"></select>
+@{
+    foreach (var manager in Model.managerList)
+    {
+        <option id="@manager.ID">@manager.LastName, @manager.FirstName</option>
+    }
+}
 
 <table>
     <tr>

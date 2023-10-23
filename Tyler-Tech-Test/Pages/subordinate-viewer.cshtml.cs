@@ -9,8 +9,11 @@ namespace Tyler_Tech_Test.Pages
 {
 	public class subordinate_viewerModel : PageModel
     {
+        public List<Employee> managerList;
+
         public void OnGet()
         {
+            managerList = DAL.GetManagers();
         }
     }
 }
