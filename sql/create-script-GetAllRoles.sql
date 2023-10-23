@@ -10,11 +10,6 @@ IF NOT EXISTS
 
 BEGIN
     CREATE PROCEDURE [dbo].[GetAllRoles]
-    (
-        @ID UNIQUEIDENTIFIER,
-        @Employee UNIQUEIDENTIFIER,
-        @Role UNIQUEIDENTIFIER
-    )
     AS
         SELECT *
         FROM [dbo].[Roles]
